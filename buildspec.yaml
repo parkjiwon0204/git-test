@@ -14,9 +14,8 @@ phases:
       - echo Building the Docker image...
       - sudo yum update -y
       - sudo yum install docker -y
-      - sudo systemctl unmask docker
-      - sudo systemctl start docker
-      - sudo systemctl enable docker
+      - sudo service docker start
+      - sudo service docker enable
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
