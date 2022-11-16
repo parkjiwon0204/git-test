@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    IMAGE_REPO_NAME: nginx-simple # ECR Repository명
+    IMAGE_REPO_NAME: test # ECR Repository명
     AWS_ACCOUNT_ID: 296605316709
     CONTAINER_NAME: nginx-simple-container # ECS에서 사용할 컨테이너명
 phases:
