@@ -14,7 +14,7 @@ phases:
       - echo Building the Docker image...
       - sudo yum update -y
       - sudo yum install docker -y
-      - sudo docker run --privileged -d --name centos centos init
+      - sudo systemctl unmask docker
       - sudo systemctl start docker
       - sudo systemctl enable docker
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
