@@ -1,23 +1,13 @@
-FROM ubuntu:18.04
+FROM golang:1.12-alpine AS build
+#Install git
+RUN apk add --no-cache git
+#Get the hello world package from a GitHub repository
+RUN go get github.com/golang/example/hello
+WORKDIR /go/src/github.com/golang/example/hello
+# Build the project and send the output to /bin/HelloWorld 
+RUN go build -o /bin/HelloWorld
 
-# 2. 메타데이터 표시
-LABEL "purpose"="practice"
-
-# 3. 업데이트 및 아파치 설치
-RUN apt-get update
-RUN apt-get install apache2 -y
-
-# 4. 호스트에 있는 파일을 추가
-ADD index.html /var/www/html
-
-# 5. 작업공간 이동(=cd)
-WORKDIR /var/www/html
-
-# 6. 거기서 test2.html 파일생성
-RUN ["/bin/bash", "-c", "echo hello > index.html"]
-
-# 7. 포트 80번 노출 지정
-EXPOSE 80
-
-# 8. 컨테이너 생성시 시작명령어
-CMD apachectl -DFOREGROUND
+FROM golang:1.12-alpine
+#Copy the build's output binary from the previous build container
+COPY --from=build /bin/HelloWorld /bin/HelloWorld
+ENTRYPOINT ["/bin/HelloWorld"]
