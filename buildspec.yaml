@@ -10,7 +10,7 @@ phases:
       - mv ./kubectl /usr/local/bin/kubectl
       - mkdir ~/.kube
       - aws eks --region ap-northeast-2 update-kubeconfig --name cluster
-      - kubectl get po -n kube-system
+    #  - kubectl get po -n kube-system
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -29,7 +29,7 @@ phases:
       - AWS_ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - DATE='date'
       - echo Build completed on $DATE
-      - sed -i.bak 's#AWS_ECR_URI#'"$AWS_ECR_URI"'#' ./EKS/deployment.yaml
-      - sed -i.bak 's#DATE_STRING#'"$DATE"'#' ./EKS/deployment.yaml
+     # - sed -i.bak 's#AWS_ECR_URI#'"$AWS_ECR_URI"'#' ./EKS/deployment.yaml
+     # - sed -i.bak 's#DATE_STRING#'"$DATE"'#' ./EKS/deployment.yaml
       - kubectl apply -f ./EKS/deployment.yaml
       - kubectl apply -f ./EKS/service.yaml
