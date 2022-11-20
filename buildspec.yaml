@@ -7,10 +7,10 @@ phases:
       - curl -sS -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
       - curl -sS -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.23.7/2022-06-29/bin/linux/amd64/kubectl
       - chmod +x ./kubectl ./aws-iam-authenticator
-     # - mv ./kubectl /usr/local/bin/kubectl
-     # - mkdir ~/.kube
+      - mv ./kubectl /usr/local/bin/kubectl
+      - mkdir ~/.kube
       - aws eks --region ap-northeast-2 update-kubeconfig --name cluster
-     #- kubectl get po -n kube-system
+      - kubectl get po -n kube-system
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
